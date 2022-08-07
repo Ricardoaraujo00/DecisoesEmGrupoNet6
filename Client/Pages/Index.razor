@@ -1,7 +1,102 @@
 ﻿@page "/"
+@inject IDialogService DialogService
+@inject IJSRuntime JsRuntime
 
-<PageTitle>Index</PageTitle>
+<MudText class="ma-16" Typo="Typo.h1" Align="Align.Center">Inovar nas decisões</MudText>
 
-<MudText Typo="Typo.h3" GutterBottom="true">Hello, world!</MudText>
-<MudText Class="mb-8">Welcome to your new app, powered by MudBlazor!</MudText>
-<MudAlert Severity="Severity.Normal">You can find documentation and examples on our website here: <MudLink Href="https://mudblazor.com" Typo="Typo.body2" Color="Color.Inherit"><b>www.mudblazor.com</b></MudLink></MudAlert>
+<MudContainer Class="pt-0">
+<MudTabs Centered="true" Elevation="2" Rounded="true"  PanelClass="pa-6 mb-12">
+    <MudTabPanel  Text="Por votar">
+        <MudStack class="mt-12">
+            <MudPaper class="cursor-pointer" @onclick="OpenDialog">
+                <MudGrid  class="pa-5">
+                    <MudItem >
+                        <MudImage Src="images/mony.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-lg" Style="max-width:100px;"/>
+                    </MudItem>
+                    <MudItem  sm="9" lg="10">
+                        <div>
+                            <h2>Titulo</h2>
+                            <p>texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto </p>
+                        </div>
+                    </MudItem>
+                </MudGrid>
+            </MudPaper>
+            <MudPaper Class="pa-3">Item 2</MudPaper>
+            <MudPaper Class="pa-3">Item 3</MudPaper>
+        </MudStack>
+        
+    </MudTabPanel>
+    <MudTabPanel Text="Votadas abertas">
+        <MudText>Content Two</MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="Fechadas">
+        <MudText>Content Three</MudText>
+    </MudTabPanel>
+    <MudTabPanel Text="Censuradas" Disabled="true">
+        <MudText>Content Disabled</MudText>
+    </MudTabPanel>
+</MudTabs>
+</MudContainer>
+
+
+<MudContainer >
+    <MudStack>
+            <div>
+                <MudStack Row="true">
+                    <MudAvatar Image="images/mony.jpg" />
+                    <MudBadge Class=" flex-grow-1" Origin="Origin.BottomRight" Content="31" Color="Color.Primary" Overlap="true" Dot="false" Bordered="false" Icon="">
+                        <MudPaper Class="pa-3 flex-grow-1 rounded-xl">Eu acho que sim, é muito bom</MudPaper>
+                    </MudBadge>
+                </MudStack>
+                <MudChip class="cursor-pointer" Size="Size.Small" style="margin-left:75px;margin-top:-10px;"  Color="Color.Primary">Gosto</MudChip>
+            </div>
+
+            <div>
+                <MudStack Row="true">
+                    <MudAvatar Image="images/mony.jpg" />
+                    <MudBadge Class=" flex-grow-1" Origin="Origin.BottomRight" Content="31" Color="Color.Primary" Overlap="true" Dot="false" Bordered="false" Icon="">
+                        <MudPaper Class="pa-3 flex-grow-1 rounded-xl">Eu acho que sim, é muito bom</MudPaper>
+                    </MudBadge>
+                </MudStack>
+                <MudChip class="cursor-pointer" Size="Size.Small" style="margin-left:75px;margin-top:-10px;" Color="Color.Secondary">Gosto</MudChip>
+            </div>
+
+        <MudPaper Class="pa-3">Item 2</MudPaper>
+        <MudPaper Class="pa-3">Item 3</MudPaper>
+    </MudStack>
+</MudContainer>
+
+@code {
+
+    DialogOptions FullScreen = new DialogOptions() { FullScreen = true };
+    DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true };
+    private async  void OpenDialog()
+    {
+        await GetDimensions();
+        if(Width>768)
+        {
+            DialogService.Show<DialogShowProposal_Dialog>("",maxWidth);
+        }
+        else
+        {
+            DialogService.Show<DialogShowProposal_Dialog>("", FullScreen);
+        }
+        
+    }
+
+    public int Height { get; set; }
+    public int Width { get; set; }
+
+    private async Task GetDimensions()
+    {
+        var dimension = await JsRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+        Height = dimension.Height;
+        Width = dimension.Width;
+    }
+
+    public class WindowDimension
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
+    }
+}

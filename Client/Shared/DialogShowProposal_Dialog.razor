@@ -1,0 +1,89 @@
+﻿<MudDialog >
+    <DialogContent >
+        <MudContainer class="d-flex flex-column py-1" Style="max-height: 90vh; overflow-y: scroll">
+            <MudText class="ma-16" Typo="Typo.h3" Align="Align.Center">Titulo da proposta</MudText>
+            <MudStack>
+                <MudPaper Class=" flex-grow-1 gap-4" Elevation="0">
+                    <MudCarousel Class="mud-width-full" Style="height:200px;" ShowArrows="true" ShowBullets="true" AutoCycle="true" TData="object">
+                        <MudCarouselItem  >
+                            <div class="d-flex justify-center" style="height:100%">
+                                <MudImage ObjectFit="ObjectFit.Cover" Src="images/mony.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-lg"/>
+                            </div>
+                        </MudCarouselItem>
+                        <MudCarouselItem  >
+                            <div class="d-flex justify-center" style="height:100%">
+                                <MudImage ObjectFit="ObjectFit.Cover"  Src="images/sweden.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-lg"/>
+                            </div>
+                        </MudCarouselItem>
+                        <MudCarouselItem >
+                            <div class="d-flex justify-center" style="height:100%">
+                                <MudImage ObjectFit="ObjectFit.Cover"  Src="images/iceland.jpg" Alt="Mony the dog" Elevation="25" Class="rounded-lg"/>
+                            </div>
+                        </MudCarouselItem>
+                    </MudCarousel>
+                    
+                </MudPaper>
+
+                
+                <div>
+                    
+                    <MudText class="mb-4" Typo="Typo.h5" >
+                        Descrição
+                    </MudText>
+                    <p>texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto texto </p>
+                </div>
+            </MudStack>
+            
+            <MudPaper Class="d-flex justify-center flex-grow-1 gap-4 pt-9" Style="position:relative;" Elevation="0">
+                <MudText class="mb-4 pa-3" Typo="Typo.body1" style="background-color:grey;color:white;border-radius:5px;" >Em discussão nos comentários até dia 15</MudText>
+            </MudPaper>
+            <MudPaper Class="d-flex justify-center flex-grow-1 gap-4 pa-6" Style="position:relative;" Elevation="0" >
+                <MudOverlay Visible="true" DarkBackground="true"  Absolute="true"/>
+
+                <MudButton Variant="Variant.Filled" Color="Color.Success">Aprovo</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Error">Rejeito</MudButton>
+                <MudButton Variant="Variant.Filled" Color="Color.Tertiary">Abstenho-me</MudButton>
+            </MudPaper>
+            <MudDivider class="mt-8 mb-12" />
+            
+            <MudStack>
+                <div>
+                    <MudStack Row="true">
+                        <MudAvatar Image="images/mony.jpg" />
+                        <MudBadge Class=" flex-grow-1" Origin="Origin.BottomRight" Content="31" Color="Color.Primary" Overlap="true" Dot="false" Bordered="false" Icon="">
+                            <MudPaper Class="pa-3 flex-grow-1 rounded-xl">Eu acho que sim, é muito bom</MudPaper>
+                        </MudBadge>
+                    </MudStack>
+                    <MudChip class="cursor-pointer" Size="Size.Small" style="margin-left:75px;margin-top:-10px;"  Color="Color.Primary">Gosto</MudChip>
+                    @*alternativa ao mudchip https://dev.mudblazor.com/components/chipset#single-selection*@
+                </div>
+
+                <div>
+                    <MudStack Row="true">
+                        <MudAvatar Image="images/mony.jpg" />
+                        <MudBadge Class=" flex-grow-1" Origin="Origin.BottomRight" Content="31" Color="Color.Primary" Overlap="true" Dot="false" Bordered="false" Icon="">
+                            <MudPaper Class="pa-3 flex-grow-1 rounded-xl">Eu acho que sim, é muito bom</MudPaper>
+                        </MudBadge>
+                    </MudStack>
+                    <MudChip class="cursor-pointer" Size="Size.Small" style="margin-left:75px;margin-top:-10px;" Color="Color.Secondary">Gosto</MudChip>
+                </div>
+
+                <MudPaper Class="pa-3">Item 2</MudPaper>
+                <MudPaper Class="pa-3">Item 3</MudPaper>
+            </MudStack>
+            
+            
+        </MudContainer>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" OnClick="Close">Cancelar</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    void Close() => MudDialog.Close(DialogResult.Ok(true));
+
+    
+}
